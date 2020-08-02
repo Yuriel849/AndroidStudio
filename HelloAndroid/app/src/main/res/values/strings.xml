@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hello Android</string>
+    <string name="haw">HAW Hamburg</string>
 </resources>
