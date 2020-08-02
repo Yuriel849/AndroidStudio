@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // findViewById(ID) returns reference to GUI element with the given ID.
-        TextView view = findViewById(R.id.text_output);
-        view.setText("Text changed during loading.");
+//        TextView view = findViewById(R.id.text_output);
+//        view.setText("Text changed during loading.");
         // Set the text displayed in the text view.
     }
 
@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
             Java source code is where the method is implemented.
                 Method signature must be "public void methodName(View view)"
      */
-    public void onClickSetText(View view) {
-        TextView textView = findViewById(R.id.text_output);
-        textView.setText("Button clicked.");
-    }
+//    public void onClickSetText(View view) {
+//        TextView textView = findViewById(R.id.text_output);
+//        textView.setText("Button clicked.");
+//    }
 }

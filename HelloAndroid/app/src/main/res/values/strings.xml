@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Hello Android</string>
+    <string name="app_name">Android Map</string>
     <string name="haw">HAW Hamburg</string>
-    <string name="set_text">Set text</string>
-    <string name="hint">Type something</string>
+    <string name="set">SET</string>
+    <string name="gps">GPS</string>
+    <string name="hint_edit_latitude">Latitude</string>
+    <string name="hint_edit_longitude">Longitude</string>
 </resources>
