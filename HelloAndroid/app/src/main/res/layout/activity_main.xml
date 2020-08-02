@@ -18,4 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.066" />
 
+    <Button
+        android:id="@+id/button_set_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:onClick="onClickSetText"
+        android:text="@string/set_text"
+        android:textAppearance="@android:style/TextAppearance"
+        app:layout_constraintStart_toEndOf="@+id/text_output"
+        app:layout_constraintTop_toBottomOf="@+id/text_output" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
