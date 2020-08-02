@@ -31,4 +31,16 @@
         app:layout_constraintStart_toEndOf="@+id/text_output"
         app:layout_constraintTop_toBottomOf="@+id/text_output" />
 
+    <EditText
+        android:id="@+id/edit_io"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:hint="@string/hint"
+        android:inputType="textCapSentences"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_set_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

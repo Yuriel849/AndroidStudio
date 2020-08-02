@@ -2,4 +2,5 @@
     <string name="app_name">Hello Android</string>
     <string name="haw">HAW Hamburg</string>
     <string name="set_text">Set text</string>
+    <string name="hint">Type something</string>
 </resources>
