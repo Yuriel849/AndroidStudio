@@ -3,7 +3,9 @@ package vka.yuriel.helloandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,11 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // findViewById(ID) returns reference to GUI element with the given ID.
-//        TextView view = findViewById(R.id.text_output);
-//        view.setText("Text changed during loading.");
-        // Set the text displayed in the text view.
     }
 
     /*
@@ -37,8 +34,13 @@ public class MainActivity extends AppCompatActivity {
             Java source code is where the method is implemented.
                 Method signature must be "public void methodName(View view)"
      */
-//    public void onClickSetText(View view) {
-//        TextView textView = findViewById(R.id.text_output);
-//        textView.setText("Button clicked.");
-//    }
+    public void onClickSetCoord(View view) {
+        // findViewById(ID) returns reference to GUI element with the given ID.
+        EditText latitude = findViewById(R.id.edit_latitude);
+        EditText longitude = findViewById(R.id.edit_longitude);
+        String latitudeString = latitude.getText().toString();
+
+        if(latitudeString != null && !latitudeString.isEmpty())
+            longitude.setText(latitudeString);
+    }
 }
