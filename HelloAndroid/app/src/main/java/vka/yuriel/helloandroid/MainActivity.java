@@ -2,11 +2,16 @@ package vka.yuriel.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
 
 public class MainActivity extends AppCompatActivity {
     /*
@@ -25,7 +30,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context context = getApplicationContext();
+        Configuration.getInstance().load(context,
+                PreferenceManager.getDefaultSharedPreferences(context));
         setContentView(R.layout.activity_main);
+
+        MapView mapView = findViewById(R.id.map);
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
+        mapView.setBuiltInZoomControls(true); // Appears after touching display
+        mapView.setMultiTouchControls(true);  // Resize using two fingers
+        mapView.setUseDataConnection(true);
+        mapView.getController().setZoom(16);
+        GeoPoint haw = new GeoPoint(53.557078, 10.023109);
+        mapView.getController().setCenter(haw);
+    }
+
+    public void onResume() {
+        super.onResume();
+        Configuration.getInstance().load(this,
+                PreferenceManager.getDefaultSharedPreferences(this));
     }
 
     /*
