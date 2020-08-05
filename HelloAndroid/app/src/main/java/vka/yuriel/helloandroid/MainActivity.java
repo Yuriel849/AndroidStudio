@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         References to GUI elements are kept and strings are displayed in Java files.
      */
 
+    private MapView mapView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(context));
         setContentView(R.layout.activity_main);
 
-        MapView mapView = findViewById(R.id.map);
+        mapView = findViewById(R.id.map);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true); // Appears after touching display
         mapView.setMultiTouchControls(true);  // Resize using two fingers
@@ -61,9 +63,18 @@ public class MainActivity extends AppCompatActivity {
         // findViewById(ID) returns reference to GUI element with the given ID.
         EditText latitude = findViewById(R.id.edit_latitude);
         EditText longitude = findViewById(R.id.edit_longitude);
-        String latitudeString = latitude.getText().toString();
 
-        if(latitudeString != null && !latitudeString.isEmpty())
-            longitude.setText(latitudeString);
+        findViewById(R.id.map).setPadding(0, 0, 0, 0);
+
+        String latitude_string = latitude.getText().toString();
+        String longitude_string = longitude.getText().toString();
+
+        if((latitude_string != null && !latitude_string.isEmpty())
+                && (longitude_string != null && !longitude_string.isEmpty())) {
+            double latitude_int = Double.parseDouble(latitude_string);
+            double longitude_int = Double.parseDouble(longitude_string);
+
+            mapView.getController().setCenter(new GeoPoint(latitude_int, longitude_int));
+        }
     }
 }
