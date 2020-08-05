@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import org.osmdroid.config.Configuration;
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 Method signature must be "public void methodName(View view)"
      */
     public void onClickSetCoord(View view) {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
         // findViewById(ID) returns reference to GUI element with the given ID.
         EditText latitude = findViewById(R.id.edit_latitude);
         EditText longitude = findViewById(R.id.edit_longitude);
