@@ -48,7 +48,7 @@
         android:textOn="@string/gps"
         android:textOff="@string/gps"
         android:checked="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@android:style/TextAppearance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintLeft_toLeftOf="parent"
