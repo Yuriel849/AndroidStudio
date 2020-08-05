@@ -1,13 +1,21 @@
 package vka.yuriel.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ToggleButton;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -29,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private MapView mapView;
+    private LocationListener listener;
+    private LocationManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(context));
         setContentView(R.layout.activity_main);
 
+        // Initialize the map
         mapView = findViewById(R.id.map);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true); // Appears after touching display
@@ -46,12 +57,35 @@ public class MainActivity extends AppCompatActivity {
         mapView.getController().setZoom(16);
         GeoPoint haw = new GeoPoint(53.557078, 10.023109);
         mapView.getController().setCenter(haw);
+
+        // Request location permission from the user (GPS)
+        requestLocationPermissions();
     }
 
+    @Override
     public void onResume() {
         super.onResume();
         Configuration.getInstance().load(this,
                 PreferenceManager.getDefaultSharedPreferences(this));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopLocationUpdates();
+    }
+
+    private void requestLocationPermissions() {
+        // Check, if permission have been granted
+        int checkFine = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int checkCoarse = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        // Dialog to request permissions, if not granted
+        if ((checkFine != PackageManager.PERMISSION_GRANTED) || (checkCoarse != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[] {
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }
     }
 
     /*
@@ -79,6 +113,59 @@ public class MainActivity extends AppCompatActivity {
             double longitude_int = Double.parseDouble(longitude_string);
 
             mapView.getController().setCenter(new GeoPoint(latitude_int, longitude_int));
+        }
+    }
+
+    public void onClickSetGPS(View view) {
+        ToggleButton button = (ToggleButton) view;
+        if (button.isChecked()) {
+            startLocationUpdates();
+        } else {
+            stopLocationUpdates();
+        }
+    }
+
+    private LocationListener createLocationListener() {
+        return new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                if (location != null) {
+                    mapView.getController().setCenter(new GeoPoint(location));
+                }
+            }
+
+            @ Override
+            public void onStatusChanged(String provider, int status, Bundle bund) {
+            }
+
+            @ Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @ Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+    }
+
+    // Start regular updates of device location
+    private void startLocationUpdates() {
+        final long minTimeMs = 1000; // Update frequency (once per second)
+        final float minDistanceMeter = 1.0f; // Minimum change of location
+        listener = createLocationListener();
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        try {
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTimeMs, minDistanceMeter, listener);
+        } catch (SecurityException exception) { // SecurityException occurs if location permissions have not been given
+        }
+    }
+
+    // Remove regular updates of device location (e.g., GPS)
+    private void stopLocationUpdates() {
+        if ((manager != null) && (listener != null)) {
+            manager.removeUpdates(listener);
+            manager = null;
+            listener = null;
         }
     }
 }

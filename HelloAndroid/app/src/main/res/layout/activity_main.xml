@@ -23,6 +23,7 @@
 
     <Button
         android:id="@+id/set_coord"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:background="@drawable/ic_launcher_background"
@@ -36,13 +37,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.066" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/set_gps"
+        style="@android:style/Widget.Button.Toggle"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:background="@drawable/ic_launcher_background"
         android:onClick="onClickSetGPS"
         android:text="@string/gps"
+        android:textOn="@string/gps"
+        android:textOff="@string/gps"
+        android:checked="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.943"
