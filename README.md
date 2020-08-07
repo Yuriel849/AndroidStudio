@@ -1,5 +1,5 @@
 # AndroidStudio
-A repository for my studies of Android Studio and mobile app development projects.
+A repository for my studies of Android Studio and Android app development projects.
 
 ## HelloAndroid project
 First Android project that:
